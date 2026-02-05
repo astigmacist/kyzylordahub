@@ -7,7 +7,7 @@ import { Hero } from '@/components/Hero';
 import { Club } from '@/components/Club';
 import { Coworking } from '@/components/Coworking';
 import { Footer } from '@/components/Footer';
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, Rocket, Users, Briefcase, Coins, GraduationCap, Network } from 'lucide-react';
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('home');
@@ -90,48 +90,53 @@ export default function Home() {
                 {
                   title: 'Акселерация',
                   description: 'Интенсивная программа развития вашего стартапа с менторами и экспертами',
-                  icon: '🚀',
+                  icon: Rocket,
                 },
                 {
                   title: 'Менторство',
                   description: 'Персональное сопровождение опытными предпринимателями и специалистами',
-                  icon: '👥',
+                  icon: Users,
                 },
                 {
                   title: 'Коворкинг',
                   description: 'Современное рабочее пространство для команд и индивидуальных работников',
-                  icon: '💼',
+                  icon: Briefcase,
                 },
                 {
                   title: 'Инвестиции',
                   description: 'Помощь в привлечении финансирования и связь с инвесторами',
-                  icon: '💰',
+                  icon: Coins,
                 },
                 {
                   title: 'Обучение',
                   description: 'Курсы, воркшопы и мастер-классы по развитию IT-навыков',
-                  icon: '📚',
+                  icon: GraduationCap,
                 },
                 {
                   title: 'Networking',
                   description: 'Доступ к сообществу предпринимателей, инвесторов и партнеров',
-                  icon: '🤝',
+                  icon: Network,
                 },
-              ].map((program, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05, y: -10 }}
-                  className="p-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl hover:bg-white/10 transition-all cursor-pointer"
-                >
-                  <div className="text-5xl mb-4">{program.icon}</div>
-                  <h3 className="text-2xl font-bold text-white mb-3">{program.title}</h3>
-                  <p className="text-white/60 leading-relaxed">{program.description}</p>
-                </motion.div>
-              ))}
+              ].map((program, index) => {
+                const Icon = program.icon;
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    whileHover={{ scale: 1.05, y: -10 }}
+                    className="p-8 bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl hover:bg-white/10 transition-all cursor-pointer"
+                  >
+                    <div className="mb-6 w-14 h-14 rounded-2xl bg-gradient-to-br from-[#2D6BFF]/20 to-[#FF7A00]/20 flex items-center justify-center">
+                      <Icon size={32} className="text-[#2D6BFF]" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-3">{program.title}</h3>
+                    <p className="text-white/60 leading-relaxed">{program.description}</p>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </section>
