@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface NavigationProps {
   activeSection: string;
@@ -12,6 +13,12 @@ interface NavigationProps {
 export function Navigation({ activeSection, onNavigate }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,11 +39,10 @@ export function Navigation({ activeSection, onNavigate }: NavigationProps) {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? 'bg-[#0B0B0E]/80 backdrop-blur-xl border-b border-white/5'
-          : 'bg-transparent'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+        ? 'bg-background/80 backdrop-blur-xl border-b border-border'
+        : 'bg-transparent'
+        }`}
     >
       <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between h-20 lg:h-24">
@@ -47,10 +53,10 @@ export function Navigation({ activeSection, onNavigate }: NavigationProps) {
             onClick={() => onNavigate('home')}
           >
             <div className="flex items-center gap-3">
-              <img 
-                src="/kyzylorda-hub-logo.png" 
-                alt="Kyzylorda Hub" 
-                className="h-12 w-auto invert brightness-110"
+              <img
+                src="/logo-horizontal.png"
+                alt="Kyzylorda Hub"
+                className="h-10 w-auto"
               />
             </div>
           </motion.div>
@@ -61,7 +67,7 @@ export function Navigation({ activeSection, onNavigate }: NavigationProps) {
               <motion.button
                 key={item.id}
                 onClick={() => onNavigate(item.id)}
-                className="relative text-white/70 hover:text-white transition-colors"
+                className="relative text-foreground/70 hover:text-foreground transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -76,21 +82,46 @@ export function Navigation({ activeSection, onNavigate }: NavigationProps) {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden lg:block">
-            <motion.button
-              whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(255, 122, 0, 0.4)' }}
-              whileTap={{ scale: 0.95 }}
-              className="px-6 py-3 bg-gradient-to-r from-[#FF7A00] to-[#FF8C32] text-white rounded-full transition-all font-semibold text-sm"
-            >
-              Логин / Регистрация
-            </motion.button>
+          {/* Theme Toggle */}
+          <div className="hidden lg:flex items-center gap-6">
+            {/* Theme Toggle */}
+            {mounted && (
+              <motion.button
+                onClick={toggleTheme}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="relative w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center text-foreground/70 hover:text-foreground hover:bg-accent transition-all"
+              >
+                <motion.div
+                  initial={false}
+                  animate={{
+                    rotate: theme === 'dark' ? 0 : 180,
+                    scale: theme === 'dark' ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute"
+                >
+                  <Moon size={20} />
+                </motion.div>
+                <motion.div
+                  initial={false}
+                  animate={{
+                    rotate: theme === 'light' ? 0 : -180,
+                    scale: theme === 'light' ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute"
+                >
+                  <Sun size={20} />
+                </motion.div>
+              </motion.button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
           <motion.button
             whileTap={{ scale: 0.9 }}
-            className="lg:hidden text-white"
+            className="lg:hidden text-foreground"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -104,7 +135,7 @@ export function Navigation({ activeSection, onNavigate }: NavigationProps) {
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
-          className="lg:hidden bg-[#0B0B0E]/95 backdrop-blur-xl border-t border-white/5"
+          className="lg:hidden bg-background/95 backdrop-blur-xl border-t border-border"
         >
           <div className="px-6 py-6 space-y-4">
             {navItems.map((item) => (
@@ -114,18 +145,12 @@ export function Navigation({ activeSection, onNavigate }: NavigationProps) {
                   onNavigate(item.id);
                   setIsMobileMenuOpen(false);
                 }}
-                className="block w-full text-left text-white/70 hover:text-white py-3 transition-colors"
+                className="block w-full text-left text-foreground/70 hover:text-foreground py-3 transition-colors"
                 whileTap={{ scale: 0.98 }}
               >
                 {item.label}
               </motion.button>
             ))}
-            <motion.button
-              whileTap={{ scale: 0.95 }}
-              className="w-full px-6 py-3 bg-gradient-to-r from-[#FF7A00] to-[#FF8C32] text-white rounded-full font-semibold text-sm"
-            >
-              Логин / Регистрация
-            </motion.button>
           </div>
         </motion.div>
       )}

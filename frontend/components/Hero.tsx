@@ -1,7 +1,6 @@
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
 import { useRef, useMemo } from 'react';
 
 export function Hero() {
@@ -16,7 +15,7 @@ export function Hero() {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
 
   // Generate particles only once on client side
-  const particles = useMemo(() => 
+  const particles = useMemo(() =>
     Array.from({ length: 30 }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
@@ -28,7 +27,7 @@ export function Hero() {
   );
 
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-[#0B0B0E] overflow-hidden">
+    <div ref={containerRef} className="relative min-h-screen bg-background overflow-hidden transition-colors duration-300">
       {/* Animated Background */}
       <div className="absolute inset-0">
         {/* Gradient Orbs */}
@@ -90,13 +89,13 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="max-w-5xl mx-auto mb-6 text-white font-bold leading-tight"
+          className="max-w-5xl mx-auto mb-6 text-foreground font-bold leading-tight"
           style={{ fontSize: 'clamp(40px, 7vw, 80px)' }}
         >
-          Развиваем IT-экосистему
+          Kyzylorda Hub - эпицентр развития
           <br />
           <span className="bg-gradient-to-r from-[#2D6BFF] to-[#FF7A00] bg-clip-text text-transparent">
-            Кызылординской области
+            стартап экосистемы Кызылординской области
           </span>
         </motion.h1>
 
@@ -104,45 +103,11 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6 }}
-          className="max-w-2xl mx-auto mb-12 text-white/60 leading-relaxed"
+          className="max-w-2xl mx-auto mb-12 text-muted-foreground leading-relaxed"
           style={{ fontSize: 'clamp(16px, 2vw, 20px)' }}
         >
-          Kyzylorda Hub объединяет таланты, капитал и экспертизу для создания, развития и запуска
-          успешных IT-стартапов в регионе.
+          Мы объединяем таланты, экспертизу и инфраструктуру для создания и развития стартапов в регионе.
         </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="flex flex-wrap items-center justify-center gap-4"
-        >
-          <motion.button
-            whileHover={{
-              scale: 1.05,
-              boxShadow: '0 0 40px rgba(45, 107, 255, 0.5)',
-            }}
-            whileTap={{ scale: 0.95 }}
-            className="group px-8 py-4 bg-gradient-to-r from-[#1455F0] to-[#2D6BFF] text-white rounded-full flex items-center gap-2 transition-all font-semibold"
-          >
-            Подать заявку
-            <ArrowRight
-              size={20}
-              className="group-hover:translate-x-1 transition-transform"
-            />
-          </motion.button>
-
-          <motion.button
-            whileHover={{
-              scale: 1.05,
-              boxShadow: '0 0 40px rgba(255, 122, 0, 0.3)',
-            }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 bg-white/5 backdrop-blur-sm border border-white/10 text-white rounded-full hover:bg-white/10 transition-all font-semibold"
-          >
-            Узнать больше
-          </motion.button>
-        </motion.div>
 
         {/* Stats */}
         <motion.div
@@ -163,12 +128,12 @@ export function Hero() {
               className="text-center"
             >
               <div
-                className="text-white mb-2 bg-gradient-to-r from-[#2D6BFF] to-[#FF7A00] bg-clip-text text-transparent font-bold"
+                className="text-foreground mb-2 bg-gradient-to-r from-[#2D6BFF] to-[#FF7A00] bg-clip-text text-transparent font-bold"
                 style={{ fontSize: 'clamp(32px, 4vw, 48px)' }}
               >
                 {stat.value}
               </div>
-              <div className="text-white/50 text-sm">
+              <div className="text-muted-foreground text-sm">
                 {stat.label}
               </div>
             </motion.div>
@@ -186,9 +151,9 @@ export function Hero() {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center pt-2"
+          className="w-6 h-10 border-2 border-border rounded-full flex justify-center pt-2"
         >
-          <motion.div className="w-1 h-2 bg-white/40 rounded-full" />
+          <motion.div className="w-1 h-2 bg-muted-foreground rounded-full" />
         </motion.div>
       </motion.div>
     </div>

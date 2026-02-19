@@ -18,11 +18,11 @@ export function Coworking() {
       icon: Wifi,
       title: 'Open Space',
       description: 'Совместные пространства с высокоскоростным интернетом',
-      features: ['WiFi 1Gb/s', 'Кофе без ограничений', 'Принтеры'],
+      features: ['WiFi 500 Мб/сек', 'Кофе без ограничений', 'Принтеры'],
     },
     {
       icon: Coffee,
-      title: 'Частные офисы',
+      title: 'Рабочие кабинеты',
       description: 'Закрытые офисы для команд от 2 до 10 человек',
       features: ['Меблированные', 'Безопасность 24/7', 'Уборка'],
     },
@@ -39,7 +39,7 @@ export function Coworking() {
     <div
       ref={containerRef}
       id="coworking"
-      className="relative py-32 px-6 bg-gradient-to-b from-[#0B0B0E] to-black overflow-hidden"
+      className="relative py-32 px-6 bg-background overflow-hidden transition-colors duration-300"
     >
       {/* Background */}
       <div className="absolute inset-0">
@@ -64,25 +64,24 @@ export function Coworking() {
             </div>
 
             <h2
-              className="text-white mb-6 font-bold leading-tight"
+              className="text-foreground mb-6 font-bold leading-tight"
               style={{ fontSize: 'clamp(32px, 5vw, 56px)' }}
             >
-              Ваш офис,{' '}
               <span className="bg-gradient-to-r from-[#2D6BFF] to-[#FF7A00] bg-clip-text text-transparent">
-                переосмыслен
+                Коворкинг Kyzylorda Hub
               </span>
             </h2>
 
             <p
-              className="text-white/60 mb-8 text-lg leading-relaxed"
+              className="text-muted-foreground mb-8 text-lg leading-relaxed"
             >
               Современные и вдохновляющие пространства, созданные для стимулирования вашего творчества и
               продуктивности. Присоединяйтесь к динамичному сообществу предпринимателей и инноваторов.
             </p>
 
-            <div className="flex items-center gap-4 text-white/50">
+            <div className="flex items-center gap-4 text-muted-foreground">
               <MapPin size={20} />
-              <span>г. Кызылорда, Казахстан</span>
+              <span>г.Кызылорда, Айтеке би 29а</span>
             </div>
           </motion.div>
 
@@ -92,10 +91,10 @@ export function Coworking() {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="aspect-[4/3] rounded-3xl overflow-hidden border border-white/10">
-              <img 
-                src="https://images.unsplash.com/photo-1626187777040-ffb7cb2c5450" 
-                alt="Kyzylorda Hub Coworking Space" 
+            <div className="aspect-[4/3] rounded-3xl overflow-hidden border border-border">
+              <img
+                src="https://images.unsplash.com/photo-1626187777040-ffb7cb2c5450"
+                alt="Kyzylorda Hub Coworking Space"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
@@ -109,10 +108,10 @@ export function Coworking() {
               transition={{ delay: 0.5, type: 'spring' }}
               className="absolute -bottom-6 -right-6 p-6 bg-gradient-to-br from-[#FF7A00] to-[#FF8C32] rounded-2xl shadow-2xl"
             >
-              <div className="text-white text-3xl font-bold">
+              <div className="text-foreground text-3xl font-bold">
                 24/7
               </div>
-              <div className="text-white/80 text-sm">
+              <div className="text-muted-foreground text-sm">
                 Безлимитный доступ
               </div>
             </motion.div>
@@ -125,7 +124,7 @@ export function Coworking() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-white mb-12 text-center font-bold"
+            className="text-foreground mb-12 text-center font-bold"
             style={{ fontSize: 'clamp(24px, 4vw, 40px)' }}
           >
             Пространства и услуги
@@ -142,18 +141,18 @@ export function Coworking() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.2 }}
                   whileHover={{ y: -10 }}
-                  className="group p-8 bg-white/[0.02] backdrop-blur-sm border border-white/5 rounded-3xl hover:border-white/10 transition-all"
+                  className="group p-8 bg-card backdrop-blur-sm border border-border rounded-3xl hover:border-border transition-all"
                 >
                   <Icon size={40} className="text-[#2D6BFF] mb-6" />
-                  <h4 className="text-white mb-3 text-2xl font-semibold">
+                  <h4 className="text-foreground mb-3 text-2xl font-semibold">
                     {space.title}
                   </h4>
-                  <p className="text-white/60 mb-6 leading-relaxed">
+                  <p className="text-muted-foreground mb-6 leading-relaxed">
                     {space.description}
                   </p>
                   <ul className="space-y-2">
                     {space.features.map((feature, i) => (
-                      <li key={i} className="flex items-center gap-2 text-white/50 text-sm">
+                      <li key={i} className="flex items-center gap-2 text-muted-foreground text-sm">
                         <div className="w-1.5 h-1.5 bg-[#FF7A00] rounded-full" />
                         {feature}
                       </li>
@@ -171,24 +170,24 @@ export function Coworking() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-20 p-8 bg-white/[0.02] border border-white/5 rounded-3xl"
+          className="mt-20 p-8 bg-card border border-border rounded-3xl"
         >
           <div className="grid md:grid-cols-2 gap-8 text-center">
             <div>
               <Clock size={32} className="text-[#2D6BFF] mx-auto mb-3" />
-              <h5 className="text-white mb-2 text-lg font-semibold">
-                Гибкий график
+              <h5 className="text-foreground mb-2 text-lg font-semibold">
+                График работы
               </h5>
-              <p className="text-white/50 text-sm">
-                Доступ 24/7 для всех участников
+              <p className="text-muted-foreground text-sm">
+                Пн-Сб с 9:00-20:00
               </p>
             </div>
             <div>
               <MapPin size={32} className="text-[#FF7A00] mx-auto mb-3" />
-              <h5 className="text-white mb-2 text-lg font-semibold">
+              <h5 className="text-foreground mb-2 text-lg font-semibold">
                 Премиум локация
               </h5>
-              <p className="text-white/50 text-sm">
+              <p className="text-muted-foreground text-sm">
                 Центр города, транспорт рядом
               </p>
             </div>

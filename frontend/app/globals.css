@@ -2,24 +2,24 @@
 
 :root {
   --font-size: 16px;
-  --background: #ffffff;
-  --foreground: #0a0a0a;
-  --card: #ffffff;
-  --card-foreground: #0a0a0a;
-  --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
+  --background: #0B0B0E;
+  --foreground: #ffffff;
+  --card: #1a1a1a;
+  --card-foreground: #ffffff;
+  --popover: #1a1a1a;
+  --popover-foreground: #ffffff;
   --primary: #2D6BFF;
   --primary-foreground: #ffffff;
   --secondary: #FF7A00;
   --secondary-foreground: #ffffff;
-  --muted: #f5f5f5;
-  --muted-foreground: #737373;
-  --accent: #f5f5f5;
-  --accent-foreground: #0a0a0a;
-  --destructive: #ef4444;
+  --muted: #262626;
+  --muted-foreground: #a3a3a3;
+  --accent: #262626;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
   --destructive-foreground: #ffffff;
-  --border: #e5e5e5;
-  --input: #e5e5e5;
+  --border: #262626;
+  --input: #262626;
   --ring: #2D6BFF;
   --radius: 0.625rem;
 }
@@ -50,25 +50,26 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-.dark {
-  --background: #0B0B0E;
-  --foreground: #ffffff;
-  --card: #1a1a1a;
-  --card-foreground: #ffffff;
-  --popover: #1a1a1a;
-  --popover-foreground: #ffffff;
+/* Light Theme */
+.light {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --card: #f5f5f5;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
   --primary: #2D6BFF;
   --primary-foreground: #ffffff;
   --secondary: #FF7A00;
   --secondary-foreground: #ffffff;
-  --muted: #262626;
-  --muted-foreground: #a3a3a3;
-  --accent: #262626;
-  --accent-foreground: #ffffff;
-  --destructive: #dc2626;
+  --muted: #f5f5f5;
+  --muted-foreground: #737373;
+  --accent: #e5e5e5;
+  --accent-foreground: #0a0a0a;
+  --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: #262626;
-  --input: #262626;
+  --border: #e5e5e5;
+  --input: #e5e5e5;
   --ring: #2D6BFF;
 }
 

@@ -1,0 +1,170 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { Rocket, GraduationCap, Building2, Users } from 'lucide-react';
+
+export function AboutUs() {
+    const features = [
+        {
+            title: 'Развиваем стартапы',
+            description: 'Мы помогаем начинающим предпринимателям пройти путь от простой идеи до готового продукта и первых продаж. Предоставляем бесплатные консультации, место для работы и помогаем привлечь инвестиции.',
+            icon: Rocket,
+            color: '#2D6BFF',
+        },
+        {
+            title: 'Обучаем технологиям',
+            description: 'Организуем курсы и мастер-классы по IT и искусственному интеллекту для студентов, госслужащих и предпринимателей.',
+            icon: GraduationCap,
+            color: '#FF7A00',
+        },
+        {
+            title: 'Цифровизируем бизнес',
+            description: 'Помогаем местным предприятиям и государственным органам внедрять современные цифровые решения и находить квалифицированных IT-специалистов.',
+            icon: Building2,
+            color: '#2D6BFF',
+        },
+        {
+            title: 'Объединяем сообщество',
+            description: 'Наша площадка — это место встречи разработчиков, инвесторов и экспертов для обмена опытом и создания совместных проектов.',
+            icon: Users,
+            color: '#FF7A00',
+        },
+    ];
+
+    return (
+        <section id="about" className="py-32 px-6 bg-background transition-colors duration-300">
+            <div className="max-w-[1440px] mx-auto">
+                {/* Header */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="text-center mb-16"
+                >
+                    <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+                        О <span className="bg-gradient-to-r from-[#2D6BFF] to-[#FF7A00] bg-clip-text text-transparent">нас</span>
+                    </h2>
+                    <p className="text-muted-foreground text-lg max-w-4xl mx-auto leading-relaxed">
+                        Kyzylorda Hub — региональный ІТ хаб, филиал Astana Hub в Кызылординской области,
+                        который является главным центром притяжения инноваций и технологий в нашем регионе.
+                        Мы создаем экосистему, где идеи превращаются в реальный бизнес.
+                    </p>
+                </motion.div>
+
+                {/* Video and Content Grid */}
+                <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+                    {/* Video Placeholder */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                        className="relative aspect-video rounded-3xl overflow-hidden bg-gradient-to-br from-[#2D6BFF]/20 to-[#FF7A00]/20 backdrop-blur-sm border border-border"
+                    >
+                        {/* Placeholder for video */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="text-center">
+                                <motion.div
+                                    animate={{
+                                        scale: [1, 1.1, 1],
+                                        opacity: [0.5, 0.8, 0.5],
+                                    }}
+                                    transition={{
+                                        duration: 2,
+                                        repeat: Infinity,
+                                        ease: 'easeInOut',
+                                    }}
+                                    className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#2D6BFF] to-[#FF7A00] flex items-center justify-center"
+                                >
+                                    <svg
+                                        className="w-10 h-10 text-white"
+                                        fill="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                </motion.div>
+                                <p className="text-muted-foreground text-sm">Видео о Kyzylorda Hub</p>
+                            </div>
+                        </div>
+                        {/* When ready, replace with actual video:
+            <video 
+              className="w-full h-full object-cover"
+              controls
+              poster="/video-poster.jpg"
+            >
+              <source src="/about-video.mp4" type="video/mp4" />
+            </video>
+            */}
+                    </motion.div>
+
+                    {/* Mission Statement */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                        className="space-y-6"
+                    >
+                        <h3 className="text-3xl font-bold text-foreground">Чем мы занимаемся</h3>
+                        <p className="text-muted-foreground text-lg leading-relaxed">
+                            Мы создаем условия для роста и развития инновационных проектов, объединяя ресурсы,
+                            знания и людей для достижения общих целей.
+                        </p>
+                        <div className="pt-4">
+                            <motion.div
+                                whileHover={{ scale: 1.05 }}
+                                className="inline-block px-8 py-4 bg-gradient-to-r from-[#2D6BFF]/20 to-[#FF7A00]/20 backdrop-blur-sm border border-border rounded-full"
+                            >
+                                <p className="text-foreground font-semibold text-lg">
+                                    Join the Unicorn game 🦄
+                                </p>
+                            </motion.div>
+                        </div>
+                    </motion.div>
+                </div>
+
+                {/* Features Grid */}
+                <div className="grid md:grid-cols-2 gap-8">
+                    {features.map((feature, index) => {
+                        const Icon = feature.icon;
+                        return (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                whileHover={{ scale: 1.02, y: -5 }}
+                                className="p-8 bg-card backdrop-blur-sm border border-border rounded-3xl hover:bg-accent transition-all"
+                            >
+                                <Icon size={48} className="mb-6" style={{ color: feature.color }} />
+                                <h3 className="text-2xl font-bold text-foreground mb-3">{feature.title}</h3>
+                                <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+                            </motion.div>
+                        );
+                    })}
+                </div>
+
+                {/* Mission Statement at Bottom */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="mt-16 text-center"
+                >
+                    <div className="p-12 bg-gradient-to-br from-[#2D6BFF]/10 to-[#FF7A00]/10 backdrop-blur-sm border border-border rounded-3xl">
+                        <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                            Наша миссия
+                        </h3>
+                        <p className="text-muted-foreground text-xl max-w-3xl mx-auto leading-relaxed">
+                            Сделать технологии доступными для каждого
+                        </p>
+                    </div>
+                </motion.div>
+            </div>
+        </section>
+    );
+}
