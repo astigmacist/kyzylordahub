@@ -58,3 +58,4 @@ staticfiles/
 # OS
 Thumbs.db
 *~
+frontend/public/*.mp4
