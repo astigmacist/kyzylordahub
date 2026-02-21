@@ -1,8 +1,25 @@
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { MapPin, Wifi, Coffee, Presentation, Clock } from 'lucide-react';
-import { useRef } from 'react';
+import { MapPin, Wifi, Coffee, Presentation, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useRef, useState, useEffect, useCallback } from 'react';
+
+const HUB_PHOTOS = [
+  '/hub photos/IMG_3182.jpg.jpeg',
+  '/hub photos/IMG_3183.jpg.jpeg',
+  '/hub photos/IMG_3184.jpg.jpeg',
+  '/hub photos/IMG_3185.jpg.jpeg',
+  '/hub photos/IMG_3189.jpg.jpeg',
+  '/hub photos/IMG_3190.jpg.jpeg',
+  '/hub photos/IMG_3191.jpg.jpeg',
+  '/hub photos/IMG_3193.jpg.jpeg',
+  '/hub photos/IMG_3195.jpg.jpeg',
+  '/hub photos/IMG_3197.jpg.jpeg',
+  '/hub photos/IMG_3198.jpg.jpeg',
+  '/hub photos/IMG_3199.jpg.jpeg',
+  '/hub photos/IMG_3200.jpg.jpeg',
+  '/hub photos/5325879921328908793 (2) — копия.jpg.jpeg',
+];
 
 export function Coworking() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -12,6 +29,30 @@ export function Coworking() {
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+
+  const [current, setCurrent] = useState(0);
+  const total = HUB_PHOTOS.length;
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const startTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setCurrent((c) => (c + 1) % total);
+    }, 3000);
+  }, [total]);
+
+  useEffect(() => {
+    startTimer();
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [startTimer]);
+
+  const prev = () => { setCurrent((c) => (c - 1 + total) % total); startTimer(); };
+  const next = () => { setCurrent((c) => (c + 1) % total); startTimer(); };
+
+  const handleDragEnd = (_: unknown, info: { offset: { x: number } }) => {
+    if (info.offset.x < -50) next();
+    else if (info.offset.x > 50) prev();
+  };
 
   const spaces = [
     {
@@ -39,7 +80,7 @@ export function Coworking() {
     <div
       ref={containerRef}
       id="coworking"
-      className="relative py-32 px-6 bg-background overflow-hidden transition-colors duration-300"
+      className="relative py-16 px-6 bg-background overflow-hidden transition-colors duration-300"
     >
       {/* Background */}
       <div className="absolute inset-0">
@@ -91,30 +132,59 @@ export function Coworking() {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="aspect-[4/3] rounded-3xl overflow-hidden border border-border">
-              <img
-                src="https://images.unsplash.com/photo-1626187777040-ffb7cb2c5450"
-                alt="Kyzylorda Hub Coworking Space"
+            {/* Slider */}
+            <div className="aspect-[4/3] rounded-3xl overflow-hidden border border-border relative select-none">
+              <motion.img
+                key={current}
+                src={HUB_PHOTOS[current]}
+                alt={`Kyzylorda Hub фото ${current + 1}`}
                 className="w-full h-full object-cover"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={handleDragEnd}
+                initial={{ opacity: 0, x: 60 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -60 }}
+                transition={{ duration: 0.35 }}
+                style={{ cursor: 'grab' }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+
+              {/* Prev / Next buttons */}
+              <button
+                onClick={prev}
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center text-white transition-all backdrop-blur-sm"
+              >
+                <ChevronLeft size={20} />
+              </button>
+              <button
+                onClick={next}
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center text-white transition-all backdrop-blur-sm"
+              >
+                <ChevronRight size={20} />
+              </button>
+
+              {/* Counter */}
+              <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-black/50 backdrop-blur-sm text-white text-xs font-medium">
+                {current + 1} / {total}
+              </div>
+
+              {/* Dot indicators */}
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                {HUB_PHOTOS.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrent(i)}
+                    className={`rounded-full transition-all duration-300 ${i === current
+                      ? 'w-5 h-2 bg-white'
+                      : 'w-2 h-2 bg-white/40 hover:bg-white/70'
+                      }`}
+                  />
+                ))}
+              </div>
             </div>
 
-            {/* Floating badge */}
-            <motion.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5, type: 'spring' }}
-              className="absolute -bottom-6 -right-6 p-6 bg-gradient-to-br from-[#FF7A00] to-[#FF8C32] rounded-2xl shadow-2xl"
-            >
-              <div className="text-foreground text-3xl font-bold">
-                24/7
-              </div>
-              <div className="text-muted-foreground text-sm">
-                Безлимитный доступ
-              </div>
-            </motion.div>
           </motion.div>
         </div>
 

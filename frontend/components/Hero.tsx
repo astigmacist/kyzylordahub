@@ -103,7 +103,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6 }}
-          className="max-w-2xl mx-auto mb-12 text-muted-foreground leading-relaxed"
+          className="max-w-2xl mx-auto mb-8 text-muted-foreground leading-relaxed"
           style={{ fontSize: 'clamp(16px, 2vw, 20px)' }}
         >
           Мы объединяем таланты, экспертизу и инфраструктуру для создания и развития стартапов в регионе.
@@ -114,13 +114,13 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mt-20 lg:mt-32"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10 mt-6"
         >
           {[
-            { value: '50+', label: 'Стартапов' },
-            { value: '100+', label: 'Участников' },
-            { value: '20+', label: 'Мероприятий' },
-            { value: '15+', label: 'Менторов' },
+            { value: '52', label: 'Стартап проекта' },
+            { value: '420+', label: 'Мероприятий' },
+            { value: '14 100+', label: 'Участников' },
+            { value: '42,5 млн', label: 'Инвестиций' },
           ].map((stat, index) => (
             <motion.div
               key={index}
@@ -128,8 +128,8 @@ export function Hero() {
               className="text-center"
             >
               <div
-                className="text-foreground mb-2 bg-gradient-to-r from-[#2D6BFF] to-[#FF7A00] bg-clip-text text-transparent font-bold"
-                style={{ fontSize: 'clamp(32px, 4vw, 48px)' }}
+                className="text-foreground mb-1 bg-gradient-to-r from-[#2D6BFF] to-[#FF7A00] bg-clip-text text-transparent font-bold"
+                style={{ fontSize: 'clamp(28px, 3.5vw, 44px)' }}
               >
                 {stat.value}
               </div>

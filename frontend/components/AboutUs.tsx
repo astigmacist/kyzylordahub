@@ -32,7 +32,7 @@ export function AboutUs() {
     ];
 
     return (
-        <section id="about" className="py-32 px-6 bg-background transition-colors duration-300">
+        <section id="about" className="py-16 px-6 bg-background transition-colors duration-300">
             <div className="max-w-[1440px] mx-auto">
                 {/* Header */}
                 <motion.div
@@ -53,50 +53,26 @@ export function AboutUs() {
                 </motion.div>
 
                 {/* Video and Content Grid */}
-                <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-                    {/* Video Placeholder */}
+                <div className="grid lg:grid-cols-2 gap-12 items-start mb-16">
+                    {/* Video — portrait/phone format */}
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
-                        className="relative aspect-video rounded-3xl overflow-hidden bg-gradient-to-br from-[#2D6BFF]/20 to-[#FF7A00]/20 backdrop-blur-sm border border-border"
+                        className="flex justify-center"
                     >
-                        {/* Placeholder for video */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="text-center">
-                                <motion.div
-                                    animate={{
-                                        scale: [1, 1.1, 1],
-                                        opacity: [0.5, 0.8, 0.5],
-                                    }}
-                                    transition={{
-                                        duration: 2,
-                                        repeat: Infinity,
-                                        ease: 'easeInOut',
-                                    }}
-                                    className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#2D6BFF] to-[#FF7A00] flex items-center justify-center"
-                                >
-                                    <svg
-                                        className="w-10 h-10 text-white"
-                                        fill="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path d="M8 5v14l11-7z" />
-                                    </svg>
-                                </motion.div>
-                                <p className="text-muted-foreground text-sm">Видео о Kyzylorda Hub</p>
-                            </div>
+                        <div className="relative w-full max-w-[300px] aspect-[9/16] rounded-3xl overflow-hidden border border-border bg-black shadow-2xl">
+                            <video
+                                className="w-full h-full object-cover"
+                                controls
+                                playsInline
+                                preload="metadata"
+                            >
+                                <source src="/КызылОрдаХаб_2.mp4" type="video/mp4" />
+                                Ваш браузер не поддерживает воспроизведение видео.
+                            </video>
                         </div>
-                        {/* When ready, replace with actual video:
-            <video 
-              className="w-full h-full object-cover"
-              controls
-              poster="/video-poster.jpg"
-            >
-              <source src="/about-video.mp4" type="video/mp4" />
-            </video>
-            */}
                     </motion.div>
 
                     {/* Mission Statement */}
@@ -105,23 +81,39 @@ export function AboutUs() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
-                        className="space-y-6"
+                        className="space-y-8 pt-2"
                     >
-                        <h3 className="text-3xl font-bold text-foreground">Чем мы занимаемся</h3>
-                        <p className="text-muted-foreground text-lg leading-relaxed">
-                            Мы создаем условия для роста и развития инновационных проектов, объединяя ресурсы,
-                            знания и людей для достижения общих целей.
-                        </p>
-                        <div className="pt-4">
-                            <motion.div
-                                whileHover={{ scale: 1.05 }}
-                                className="inline-block px-8 py-4 bg-gradient-to-r from-[#2D6BFF]/20 to-[#FF7A00]/20 backdrop-blur-sm border border-border rounded-full"
-                            >
-                                <p className="text-foreground font-semibold text-lg">
-                                    Join the Unicorn game 🦄
-                                </p>
-                            </motion.div>
+                        <div>
+                            <h3 className="text-3xl font-bold text-foreground mb-4">Чем мы занимаемся</h3>
+                            <p className="text-muted-foreground text-lg leading-relaxed">
+                                Мы создаем условия для роста и развития инновационных проектов, объединяя ресурсы,
+                                знания и людей для достижения общих целей.
+                            </p>
                         </div>
+
+                        {/* Feature list */}
+                        <ul className="space-y-4">
+                            {[
+                                'Поддержка стартапов на каждом этапе',
+                                'Обучение IT и предпринимательству',
+                                'Цифровизация бизнеса и госсектора',
+                                'Сообщество инноваторов региона',
+                            ].map((item, i) => (
+                                <li key={i} className="flex items-start gap-3 text-foreground/80">
+                                    <span className="mt-1.5 w-2 h-2 rounded-full bg-gradient-to-br from-[#2D6BFF] to-[#FF7A00] flex-shrink-0" />
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <motion.div
+                            whileHover={{ scale: 1.05 }}
+                            className="inline-block px-8 py-4 bg-gradient-to-r from-[#2D6BFF]/20 to-[#FF7A00]/20 backdrop-blur-sm border border-border rounded-full"
+                        >
+                            <p className="text-foreground font-semibold text-lg">
+                                Join the Unicorn game 🦄
+                            </p>
+                        </motion.div>
                     </motion.div>
                 </div>
 
