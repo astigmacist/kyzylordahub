@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
+/* ===== CSS VARIABLES ===== */
 :root {
-  --font-size: 16px;
   --background: #0B0B0E;
   --foreground: #ffffff;
-  --card: #1a1a1a;
+  --card: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(255, 255, 255, 0.08);
   --card-foreground: #ffffff;
   --popover: #1a1a1a;
   --popover-foreground: #ffffff;
@@ -12,16 +14,20 @@
   --primary-foreground: #ffffff;
   --secondary: #FF7A00;
   --secondary-foreground: #ffffff;
-  --muted: #262626;
-  --muted-foreground: #a3a3a3;
-  --accent: #262626;
+  --muted: #1a1a1f;
+  --muted-foreground: #8a8a9a;
+  --accent: rgba(255, 255, 255, 0.06);
   --accent-foreground: #ffffff;
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
-  --border: #262626;
-  --input: #262626;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: #1e1e26;
   --ring: #2D6BFF;
-  --radius: 0.625rem;
+  --radius: 0.875rem;
+
+  /* Glow colors */
+  --glow-blue: rgba(45, 107, 255, 0.4);
+  --glow-orange: rgba(255, 122, 0, 0.4);
 }
 
 @theme inline {
@@ -48,50 +54,189 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: 'Inter', system-ui, sans-serif;
 }
 
-/* Light Theme */
+/* ===== LIGHT THEME ===== */
 .light {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
-  --card: #f5f5f5;
-  --card-foreground: #0a0a0a;
+  --background: #f8f8fc;
+  --foreground: #0a0a12;
+  --card: rgba(0, 0, 0, 0.03);
+  --card-border: rgba(0, 0, 0, 0.08);
+  --card-foreground: #0a0a12;
   --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
-  --primary: #2D6BFF;
-  --primary-foreground: #ffffff;
-  --secondary: #FF7A00;
-  --secondary-foreground: #ffffff;
-  --muted: #f5f5f5;
-  --muted-foreground: #737373;
-  --accent: #e5e5e5;
-  --accent-foreground: #0a0a0a;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #e5e5e5;
-  --input: #e5e5e5;
-  --ring: #2D6BFF;
+  --popover-foreground: #0a0a12;
+  --muted: #f0f0f8;
+  --muted-foreground: #6b6b80;
+  --accent: rgba(0, 0, 0, 0.05);
+  --accent-foreground: #0a0a12;
+  --border: rgba(0, 0, 0, 0.08);
+  --input: #ededf5;
+  --glow-blue: rgba(45, 107, 255, 0.2);
+  --glow-orange: rgba(255, 122, 0, 0.2);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0B0B0E;
-    --foreground: #ffffff;
-  }
+/* ===== RESET & BASE ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 * {
   border-color: var(--border);
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-feature-settings: "rlig" 1, "calt" 1;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-feature-settings: "rlig" 1, "calt" 1, "cv11" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-html {
-  font-size: var(--font-size);
-  scroll-behavior: smooth;
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #2D6BFF, #FF7A00);
+  border-radius: 4px;
+}
+
+/* ===== SELECTION ===== */
+::selection {
+  background: rgba(45, 107, 255, 0.3);
+  color: #ffffff;
+}
+
+/* ===== GLASS CARD ===== */
+.glass-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ===== GRADIENT TEXT ===== */
+.gradient-text {
+  background: linear-gradient(135deg, #2D6BFF 0%, #FF7A00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== BLOB ANIMATION ===== */
+@keyframes blob-float {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(20px, -20px) scale(1.05);
+  }
+
+  66% {
+    transform: translate(-15px, 15px) scale(0.97);
+  }
+}
+
+.animate-blob {
+  animation: blob-float 12s ease-in-out infinite;
+}
+
+.animate-blob-delay {
+  animation: blob-float 15s ease-in-out infinite reverse;
+}
+
+/* ===== SHIMMER EFFECT ===== */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* ===== FADE IN UP ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== PULSE GLOW ===== */
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px var(--glow-blue);
+  }
+
+  50% {
+    box-shadow: 0 0 40px var(--glow-blue), 0 0 60px var(--glow-orange);
+  }
+}
+
+/* ===== PARTICLES ===== */
+@keyframes particle-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0);
+  }
+
+  20% {
+    opacity: 1;
+    transform: translateY(-20px) scale(1);
+  }
+
+  80% {
+    opacity: 0.5;
+    transform: translateY(-80px) scale(0.8);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-120px) scale(0);
+  }
+}
+
+/* ===== NOISE TEXTURE ===== */
+.noise::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== CUSTOM FOCUS ===== */
+:focus-visible {
+  outline: 2px solid #2D6BFF;
+  outline-offset: 2px;
+  border-radius: 4px;
 }

@@ -1,21 +1,34 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const inter = Inter({
+  subsets: ["latin", "cyrillic"],
+  variable: "--font-inter",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Kyzylorda Hub - IT-экосистема Кызылординской области",
-  description: "Развиваем IT-экосистему Кызылординской области",
+  title: "Kyzylorda Hub — IT-экосистема Кызылординской области",
+  description:
+    "Kyzylorda Hub — региональный IT-хаб и технопарк. Поддержка стартапов, обучение, коворкинг, менторство и инвестиции в Кызылординской области.",
+  keywords: "Kyzylorda Hub, стартапы, IT, технопарк, коворкинг, Кызылорда, Astana Hub",
+  authors: [{ name: "Kyzylorda Hub" }],
+  openGraph: {
+    title: "Kyzylorda Hub — IT-экосистема Кызылординской области",
+    description: "Развиваем IT-экосистему Кызылординской области. Поддержка стартапов, обучение и коворкинг.",
+    url: "https://www.kyzylordahub.kz",
+    siteName: "Kyzylorda Hub",
+    locale: "ru_KZ",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kyzylorda Hub",
+    description: "Региональный IT-хаб Кызылординской области",
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -24,13 +37,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Providers>
-          {children}
-        </Providers>
+    <html lang="ru" suppressHydrationWarning>
+      <body className={`${inter.variable} font-sans antialiased`}>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

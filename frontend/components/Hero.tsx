@@ -12,93 +12,175 @@ export function Hero() {
   });
   const { t } = useLocale();
 
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
+  // Fix: define transforms outside nested render
+  const yBlob1 = useTransform(scrollYProgress, [0, 1], ['0%', '40%']);
+  const yBlob2 = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const contentScale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
 
-  const particles = useMemo(() =>
-    Array.from({ length: 30 }, (_, i) => ({
-      id: i,
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      duration: 3 + Math.random() * 4,
-      delay: Math.random() * 2,
-    })),
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 25 }, (_, i) => ({
+        id: i,
+        left: Math.random() * 100,
+        top: 20 + Math.random() * 70,
+        size: 1 + Math.random() * 2,
+        duration: 4 + Math.random() * 6,
+        delay: Math.random() * 4,
+        color: i % 3 === 0 ? '#2D6BFF' : i % 3 === 1 ? '#FF7A00' : '#ffffff',
+      })),
     []
   );
 
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-background overflow-hidden transition-colors duration-300">
-      {/* Animated Background */}
-      <div className="absolute inset-0">
+    <div
+      ref={containerRef}
+      className="relative min-h-screen overflow-hidden"
+      style={{ background: 'var(--background)' }}
+    >
+      {/* Animated Background Blobs */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Primary Blue Blob */}
         <motion.div
-          style={{ y }}
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#2D6BFF]/20 rounded-full blur-[120px]"
-          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div
-          style={{ y: useTransform(scrollYProgress, [0, 1], ['0%', '30%']) }}
-          className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-[#FF7A00]/20 rounded-full blur-[120px]"
-          animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.5, 0.3] }}
+          style={{
+            y: yBlob1,
+            background: 'radial-gradient(circle, rgba(45,107,255,0.35) 0%, rgba(45,107,255,0) 70%)',
+          }}
+          className="absolute top-[15%] left-[10%] w-[700px] h-[700px] rounded-full"
+          animate={{ scale: [1, 1.15, 1], opacity: [0.25, 0.4, 0.25] }}
           transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
         />
-        {particles.map((particle) => (
+        {/* Orange Blob */}
+        <motion.div
+          style={{
+            y: yBlob2,
+            background: 'radial-gradient(circle, rgba(255,122,0,0.3) 0%, rgba(255,122,0,0) 70%)',
+          }}
+          className="absolute top-[30%] right-[5%] w-[600px] h-[600px] rounded-full"
+          animate={{ scale: [1.1, 1, 1.1], opacity: [0.2, 0.35, 0.2] }}
+          transition={{ duration: 13, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        {/* Bottom subtle blob */}
+        <motion.div
+          className="absolute bottom-[-5%] left-[30%] w-[500px] h-[300px] rounded-full opacity-20"
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+          style={{
+            background:
+              'radial-gradient(circle, rgba(45,107,255,0.4) 0%, rgba(255,122,0,0.2) 50%, transparent 70%)',
+          }}
+        />
+
+        {/* Grid Pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)
+            `,
+            backgroundSize: '80px 80px',
+          }}
+        />
+
+        {/* Particles */}
+        {particles.map((p) => (
           <motion.div
-            key={particle.id}
-            className="absolute w-1 h-1 bg-white/20 rounded-full"
-            style={{ left: `${particle.left}%`, top: `${particle.top}%` }}
-            animate={{ y: [0, -100, 0], opacity: [0, 1, 0] }}
-            transition={{ duration: particle.duration, repeat: Infinity, delay: particle.delay }}
+            key={p.id}
+            className="absolute rounded-full"
+            style={{
+              left: `${p.left}%`,
+              top: `${p.top}%`,
+              width: `${p.size}px`,
+              height: `${p.size}px`,
+              background: p.color,
+              boxShadow: `0 0 ${p.size * 4}px ${p.color}`,
+            }}
+            animate={{
+              y: [0, -80, 0],
+              opacity: [0, 0.8, 0],
+              scale: [0, 1, 0],
+            }}
+            transition={{
+              duration: p.duration,
+              repeat: Infinity,
+              delay: p.delay,
+              ease: 'easeInOut',
+            }}
           />
         ))}
       </div>
 
       {/* Content */}
       <motion.div
-        style={{ opacity, scale }}
-        className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 text-center pt-32"
+        style={{ opacity: contentOpacity, scale: contentScale, y: contentY }}
+        className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 text-center pt-28"
       >
+
+
+        {/* Title */}
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="max-w-5xl mx-auto mb-6 text-foreground font-bold leading-tight"
-          style={{ fontSize: 'clamp(40px, 7vw, 80px)' }}
+          transition={{ duration: 1, delay: 0.35, ease: [0.25, 0.4, 0.25, 1] }}
+          className="max-w-5xl mx-auto mb-6 font-extrabold leading-[1.08] tracking-tight"
+          style={{
+            fontSize: 'clamp(38px, 7vw, 84px)',
+            color: 'var(--foreground)',
+          }}
         >
           {t.hero.title1}
           <br />
-          <span className="bg-gradient-to-r from-[#2D6BFF] to-[#FF7A00] bg-clip-text text-transparent">
-            {t.hero.title2}
-          </span>
+          <span className="gradient-text">{t.hero.title2}</span>
         </motion.h1>
 
+        {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.6 }}
-          className="max-w-2xl mx-auto mb-8 text-muted-foreground leading-relaxed"
-          style={{ fontSize: 'clamp(16px, 2vw, 20px)' }}
+          transition={{ duration: 1, delay: 0.55 }}
+          className="max-w-2xl mx-auto mb-16 leading-relaxed"
+          style={{
+            fontSize: 'clamp(16px, 2vw, 20px)',
+            color: 'var(--muted-foreground)',
+          }}
         >
           {t.hero.subtitle}
         </motion.p>
+
+
 
         {/* Stats */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10 mt-6"
+          transition={{ duration: 1, delay: 0.95 }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-px overflow-hidden rounded-2xl"
+          style={{
+            background: 'var(--card-border)',
+            border: '1px solid var(--card-border)',
+          }}
         >
           {t.hero.stats.map((stat, index) => (
-            <motion.div key={index} whileHover={{ scale: 1.05 }} className="text-center">
+            <motion.div
+              key={index}
+              whileHover={{ scale: 1.03 }}
+              className="flex flex-col items-center justify-center px-8 py-6 transition-all"
+              style={{ background: 'var(--background)' }}
+            >
               <div
-                className="text-foreground mb-1 bg-gradient-to-r from-[#2D6BFF] to-[#FF7A00] bg-clip-text text-transparent font-bold"
-                style={{ fontSize: 'clamp(28px, 3.5vw, 44px)' }}
+                className="gradient-text font-extrabold mb-1"
+                style={{ fontSize: 'clamp(24px, 3vw, 40px)' }}
               >
                 {stat.value}
               </div>
-              <div className="text-muted-foreground text-sm">{stat.label}</div>
+              <div
+                className="text-xs font-medium uppercase tracking-wider"
+                style={{ color: 'var(--muted-foreground)' }}
+              >
+                {stat.label}
+              </div>
             </motion.div>
           ))}
         </motion.div>
@@ -108,15 +190,24 @@ export function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        transition={{ delay: 2 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
+        <span className="text-xs tracking-widest uppercase" style={{ color: 'var(--muted-foreground)' }}>
+          Scroll
+        </span>
         <motion.div
-          animate={{ y: [0, 10, 0] }}
+          animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="w-6 h-10 border-2 border-border rounded-full flex justify-center pt-2"
+          className="w-5 h-9 rounded-full border-2 flex justify-center pt-1.5"
+          style={{ borderColor: 'var(--border)' }}
         >
-          <motion.div className="w-1 h-2 bg-muted-foreground rounded-full" />
+          <motion.div
+            animate={{ opacity: [1, 0, 1], y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="w-1 h-2 rounded-full"
+            style={{ background: 'var(--muted-foreground)' }}
+          />
         </motion.div>
       </motion.div>
     </div>
