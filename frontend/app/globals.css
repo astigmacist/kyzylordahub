@@ -25,6 +25,13 @@
   --ring: #2D6BFF;
   --radius: 0.875rem;
 
+  /* Nav colors */
+  --nav-bg: rgba(11, 11, 14, 0.85);
+  --nav-border: rgba(255, 255, 255, 0.07);
+  --nav-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --mobile-menu-bg: rgba(11, 11, 14, 0.95);
+  --mobile-menu-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+
   /* Glow colors */
   --glow-blue: rgba(45, 107, 255, 0.4);
   --glow-orange: rgba(255, 122, 0, 0.4);
@@ -59,21 +66,29 @@
 
 /* ===== LIGHT THEME ===== */
 .light {
-  --background: #f8f8fc;
-  --foreground: #0a0a12;
-  --card: rgba(0, 0, 0, 0.03);
-  --card-border: rgba(0, 0, 0, 0.08);
-  --card-foreground: #0a0a12;
-  --popover: #ffffff;
-  --popover-foreground: #0a0a12;
-  --muted: #f0f0f8;
-  --muted-foreground: #6b6b80;
-  --accent: rgba(0, 0, 0, 0.05);
-  --accent-foreground: #0a0a12;
+  --background: #F4F6F9;
+  --foreground: #101828;
+  --card: #FFFFFF;
+  --card-border: rgba(0, 0, 0, 0.06);
+  --card-foreground: #101828;
+  --popover: #FFFFFF;
+  --popover-foreground: #101828;
+  --muted: #E2E8F0;
+  --muted-foreground: #64748B;
+  --accent: #E2E8F0;
+  --accent-foreground: #101828;
   --border: rgba(0, 0, 0, 0.08);
-  --input: #ededf5;
-  --glow-blue: rgba(45, 107, 255, 0.2);
-  --glow-orange: rgba(255, 122, 0, 0.2);
+  --input: #E2E8F0;
+
+  /* Nav colors for light mode */
+  --nav-bg: rgba(244, 246, 249, 0.85);
+  --nav-border: rgba(0, 0, 0, 0.06);
+  --nav-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+  --mobile-menu-bg: rgba(255, 255, 255, 0.95);
+  --mobile-menu-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+
+  --glow-blue: rgba(45, 107, 255, 0.15);
+  --glow-orange: rgba(255, 122, 0, 0.15);
 }
 
 /* ===== RESET & BASE ===== */

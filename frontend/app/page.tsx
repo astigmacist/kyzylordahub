@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocale } from '@/contexts/LocaleContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import { ArrowUp, Rocket, Users, Briefcase, Coins, GraduationCap, Network } from 'lucide-react';
 import { Navigation } from '@/components/Navigation';
 import { Hero } from '@/components/Hero';
@@ -18,6 +19,7 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState('home');
   const [showScrollTop, setShowScrollTop] = useState(false);
   const { t } = useLocale();
+  const { theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -238,7 +240,12 @@ export default function Home() {
       >
         <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-4">
-            <img src="/logo-horizontal.png" alt="Kyzylorda Hub" className="h-7 w-auto opacity-70" />
+            <img
+              src="/logo-horizontal.png"
+              alt="Kyzylorda Hub"
+              className="h-7 w-auto opacity-70"
+              style={{ filter: theme === 'light' ? 'invert(1) brightness(0.1)' : 'none' }}
+            />
             <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
               {t.footer.rights}
             </p>

@@ -56,11 +56,11 @@ export function Navigation({ activeSection, onNavigate }: NavigationProps) {
         style={
           isScrolled
             ? {
-              background: 'rgba(11,11,14,0.8)',
+              background: 'var(--nav-bg)',
               backdropFilter: 'blur(24px)',
               WebkitBackdropFilter: 'blur(24px)',
-              borderBottom: '1px solid rgba(255,255,255,0.07)',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+              borderBottom: '1px solid var(--nav-border)',
+              boxShadow: 'var(--nav-shadow)',
             }
             : { background: 'transparent' }
         }
@@ -78,6 +78,7 @@ export function Navigation({ activeSection, onNavigate }: NavigationProps) {
                 src="/logo-horizontal.png"
                 alt="Kyzylorda Hub"
                 className="h-9 w-auto"
+                style={{ filter: theme === 'light' ? 'invert(1) brightness(0.1)' : 'none' }}
               />
             </motion.div>
 
@@ -270,10 +271,10 @@ export function Navigation({ activeSection, onNavigate }: NavigationProps) {
             transition={{ duration: 0.25, ease: 'easeOut' }}
             className="fixed top-[72px] left-0 right-0 z-40 mx-4 rounded-2xl overflow-hidden"
             style={{
-              background: 'rgba(11,11,14,0.95)',
+              background: 'var(--mobile-menu-bg)',
               backdropFilter: 'blur(24px)',
-              border: '1px solid rgba(255,255,255,0.07)',
-              boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+              border: '1px solid var(--nav-border)',
+              boxShadow: 'var(--mobile-menu-shadow)',
             }}
           >
             <div className="p-5 space-y-1">

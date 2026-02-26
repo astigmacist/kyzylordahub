@@ -86,7 +86,7 @@ export function AboutUs() {
                                     playsInline
                                     preload="metadata"
                                 >
-                                    <source src="/КызылОрдаХаб_2.mp4" type="video/mp4" />
+                                    <source src="/kyzylorda-hub.mp4" type="video/mp4" />
                                     Ваш браузер не поддерживает воспроизведение видео.
                                 </video>
                                 {/* Video overlay gradient at top */}
