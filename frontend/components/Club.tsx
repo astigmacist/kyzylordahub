@@ -2,15 +2,49 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import { useLocale } from '@/contexts/LocaleContext';
+
+const clubColors = ['#2D6BFF', '#FF7A00', '#E91E63', '#00BCD4'];
+const clubIcons = [
+  (
+    <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M12 2L2 7l10 5 10-5-10-5z" />
+      <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+    </svg>
+  ),
+  (
+    <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <polyline points="16 18 22 12 16 6" />
+      <polyline points="8 6 2 12 8 18" />
+    </svg>
+  ),
+  (
+    <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+      <line x1="8" y1="21" x2="16" y2="21" />
+      <line x1="12" y1="17" x2="12" y2="21" />
+    </svg>
+  ),
+  (
+    <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+    </svg>
+  ),
+];
+
+const clubLinks = [
+  'https://chat.whatsapp.com/BvikJKw3xIZ6HvnLrxp0vC',
+  'https://chat.whatsapp.com/KylGmsTOXWELAXOxqyNa1S',
+  'https://chat.whatsapp.com/H7Y0jO6TC7Q7UiRzmHoJCP',
+  'https://chat.whatsapp.com/L3xp2JcswbA3vsF7QgWX9t',
+];
 
 export function Club() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
-  });
-
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start end', 'end start'] });
   const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const { t } = useLocale();
 
   return (
     <div
@@ -27,8 +61,7 @@ export function Club() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
-
-        {/* Section heading — Наш комьюнити */}
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -37,12 +70,15 @@ export function Club() {
           className="text-center mb-10"
         >
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Наш <span className="bg-gradient-to-r from-[#2D6BFF] to-[#FF7A00] bg-clip-text text-transparent">комьюнити</span>
+            {t.club.title}{' '}
+            <span className="bg-gradient-to-r from-[#2D6BFF] to-[#FF7A00] bg-clip-text text-transparent">
+              {t.club.titleHighlight}
+            </span>
           </h2>
-          <p className="text-muted-foreground text-lg">Присоединяйтесь к нашему сообществу в мессенджерах</p>
+          <p className="text-muted-foreground text-lg">{t.club.subtitle}</p>
         </motion.div>
 
-        {/* Main Community Cards - WhatsApp & Telegram */}
+        {/* WhatsApp & Telegram */}
         <div className="grid md:grid-cols-2 gap-6 mb-12">
           {/* WhatsApp */}
           <motion.div
@@ -61,11 +97,11 @@ export function Club() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-foreground">Kyzylorda Hub Community</h3>
-                  <p className="text-sm text-muted-foreground">в WhatsApp</p>
+                  <h3 className="text-2xl font-bold text-foreground">{t.club.whatsappName}</h3>
+                  <p className="text-sm text-muted-foreground">{t.club.whatsappSub}</p>
                 </div>
               </div>
-              <p className="text-muted-foreground mb-6">Присоединяйтесь к нашему сообществу в WhatsApp</p>
+              <p className="text-muted-foreground mb-6">{t.club.whatsappDesc}</p>
               <motion.a
                 href="https://chat.whatsapp.com/F84l7qcGFbWKDoQMTjY9zw"
                 target="_blank"
@@ -74,7 +110,7 @@ export function Club() {
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] hover:bg-[#22c55e] text-white rounded-xl font-semibold transition-colors"
               >
-                Вступить
+                {t.club.joinBtn}
               </motion.a>
             </div>
           </motion.div>
@@ -96,11 +132,11 @@ export function Club() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-foreground">Kyzylorda Hub Community</h3>
-                  <p className="text-sm text-muted-foreground">в Telegram</p>
+                  <h3 className="text-2xl font-bold text-foreground">{t.club.telegramName}</h3>
+                  <p className="text-sm text-muted-foreground">{t.club.telegramSub}</p>
                 </div>
               </div>
-              <p className="text-muted-foreground mb-6">Присоединяйтесь к нашему сообществу в Telegram</p>
+              <p className="text-muted-foreground mb-6">{t.club.telegramDesc}</p>
               <motion.a
                 href="https://t.me/kyzylordahub"
                 target="_blank"
@@ -109,68 +145,18 @@ export function Club() {
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center gap-2 px-6 py-3 bg-[#0088cc] hover:bg-[#0077bb] text-white rounded-xl font-semibold transition-colors"
               >
-                Вступить
+                {t.club.joinBtn}
               </motion.a>
             </div>
           </motion.div>
         </div>
 
-
+        {/* Club Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
-          {[
-            {
-              title: 'Startup Hustlers',
-              description: 'Клуб основателей стартапов',
-              color: '#2D6BFF',
-              link: 'https://chat.whatsapp.com/BvikJKw3xIZ6HvnLrxp0vC',
-              icon: (
-                <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                  <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
-                </svg>
-              )
-            },
-            {
-              title: 'CodeForces',
-              description: 'Клуб программирования',
-              color: '#FF7A00',
-              link: 'https://chat.whatsapp.com/KylGmsTOXWELAXOxqyNa1S',
-              icon: (
-                <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="16 18 22 12 16 6" />
-                  <polyline points="8 6 2 12 8 18" />
-                </svg>
-              )
-            },
-            {
-              title: 'TechQyzdar',
-              description: 'Клуб девушек в IT',
-              color: '#E91E63',
-              link: 'https://chat.whatsapp.com/H7Y0jO6TC7Q7UiRzmHoJCP',
-              icon: (
-                <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                  <line x1="8" y1="21" x2="16" y2="21" />
-                  <line x1="12" y1="17" x2="12" y2="21" />
-                </svg>
-              )
-            },
-            {
-              title: 'Hub Speaking Club',
-              description: 'Разговорный клуб английского языка',
-              color: '#00BCD4',
-              link: 'https://chat.whatsapp.com/L3xp2JcswbA3vsF7QgWX9t',
-              icon: (
-                <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
-                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
-                </svg>
-              )
-            }
-          ].map((club, index) => (
+          {t.club.clubs.map((club, index) => (
             <motion.a
               key={index}
-              href={club.link}
+              href={clubLinks[index]}
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, y: 30 }}
@@ -182,33 +168,24 @@ export function Club() {
             >
               <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{
-                  background: `radial-gradient(circle at 50% 0%, ${club.color}15, transparent 70%)`
-                }}
+                style={{ background: `radial-gradient(circle at 50% 0%, ${clubColors[index]}15, transparent 70%)` }}
               />
-
               <div className="relative z-10">
-                <div className="mb-4" style={{ color: club.color }}>
-                  {club.icon}
-                </div>
+                <div className="mb-4" style={{ color: clubColors[index] }}>{clubIcons[index]}</div>
                 <h4 className="text-lg font-bold text-foreground mb-2">{club.title}</h4>
                 <p className="text-sm text-muted-foreground mb-6">{club.description}</p>
-
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="w-full py-2 px-4 text-white rounded-lg font-semibold text-sm"
-                  style={{
-                    background: `linear-gradient(135deg, ${club.color}, ${club.color}CC)`
-                  }}
+                  style={{ background: `linear-gradient(135deg, ${clubColors[index]}, ${clubColors[index]}CC)` }}
                 >
-                  Вступить
+                  {t.club.joinBtn}
                 </motion.button>
               </div>
             </motion.a>
           ))}
         </div>
-
       </div>
     </div>
   );
