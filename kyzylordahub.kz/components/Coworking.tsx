@@ -6,20 +6,20 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 import { useLocale } from '@/contexts/LocaleContext';
 
 const HUB_PHOTOS = [
-  '/hub photos/IMG_3182.jpg.jpeg',
-  '/hub photos/IMG_3183.jpg.jpeg',
-  '/hub photos/IMG_3184.jpg.jpeg',
-  '/hub photos/IMG_3185.jpg.jpeg',
-  '/hub photos/IMG_3189.jpg.jpeg',
-  '/hub photos/IMG_3190.jpg.jpeg',
-  '/hub photos/IMG_3191.jpg.jpeg',
-  '/hub photos/IMG_3193.jpg.jpeg',
-  '/hub photos/IMG_3195.jpg.jpeg',
-  '/hub photos/IMG_3197.jpg.jpeg',
-  '/hub photos/IMG_3198.jpg.jpeg',
-  '/hub photos/IMG_3199.jpg.jpeg',
-  '/hub photos/IMG_3200.jpg.jpeg',
-  '/hub photos/5325879921328908793 (2) — копия.jpg.jpeg',
+  '/hub-photos/IMG_3182.jpg.jpeg',
+  '/hub-photos/IMG_3183.jpg.jpeg',
+  '/hub-photos/IMG_3184.jpg.jpeg',
+  '/hub-photos/IMG_3185.jpg.jpeg',
+  '/hub-photos/IMG_3189.jpg.jpeg',
+  '/hub-photos/IMG_3190.jpg.jpeg',
+  '/hub-photos/IMG_3191.jpg.jpeg',
+  '/hub-photos/IMG_3193.jpg.jpeg',
+  '/hub-photos/IMG_3195.jpg.jpeg',
+  '/hub-photos/IMG_3197.jpg.jpeg',
+  '/hub-photos/IMG_3198.jpg.jpeg',
+  '/hub-photos/IMG_3199.jpg.jpeg',
+  '/hub-photos/IMG_3200.jpg.jpeg',
+  '/hub-photos/5325879921328908793 (2) — копия.jpg.jpeg',
 ];
 
 const spaceIcons = [Wifi, Coffee, Presentation];

@@ -1,8 +1,10 @@
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useState } from 'react';
 import { useLocale } from '@/contexts/LocaleContext';
+import { ChevronRight } from 'lucide-react';
+import { HackathonModal } from './HackathonModal';
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -10,7 +12,8 @@ export function Hero() {
     target: containerRef,
     offset: ['start start', 'end start'],
   });
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
+  const [hackathonOpen, setHackathonOpen] = useState(false);
 
   // Fix: define transforms outside nested render
   const yBlob1 = useTransform(scrollYProgress, [0, 1], ['0%', '40%']);
@@ -40,7 +43,7 @@ export function Hero() {
       style={{ background: 'var(--background)' }}
     >
       {/* Animated Background Blobs */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 2 }}>
         {/* Primary Blue Blob */}
         <motion.div
           style={{
@@ -118,6 +121,59 @@ export function Hero() {
         className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 text-center pt-28"
       >
 
+        {/* Hackathon Announcement Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="mb-8 w-full max-w-2xl"
+        >
+          <motion.button
+            onClick={() => setHackathonOpen(true)}
+            whileHover={{ scale: 1.02, y: -3 }}
+            whileTap={{ scale: 0.98 }}
+            className="relative w-full group overflow-hidden rounded-2xl px-6 py-4 text-left cursor-pointer"
+            style={{
+              background: 'linear-gradient(135deg, rgba(45,107,255,0.1), rgba(255,122,0,0.08))',
+              border: '1px solid rgba(45,107,255,0.3)',
+              boxShadow: '0 0 30px rgba(45,107,255,0.08)',
+            }}
+          >
+            {/* Animated shimmer */}
+            <motion.div
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"
+              style={{ background: 'linear-gradient(135deg, rgba(45,107,255,0.06), rgba(255,122,0,0.06))' }}
+            />
+            <div className="relative z-10 flex items-center gap-4">
+              <div className="text-2xl flex-shrink-0">🔥</div>
+              <div className="flex-1 min-w-0 text-left">
+                <div className="flex items-center gap-2 mb-1">
+                  <span
+                    className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold"
+                    style={{ background: 'rgba(45,107,255,0.15)', color: '#2D6BFF', border: '1px solid rgba(45,107,255,0.3)' }}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
+                    {locale === 'kz' ? 'Жуық арада' : 'Скоро'}
+                  </span>
+                  <span className="text-xs font-medium" style={{ color: 'var(--muted-foreground)' }}>Хакатон</span>
+                </div>
+                <p className="text-sm font-semibold leading-snug" style={{ color: 'var(--foreground)' }}>
+                  {locale === 'kz'
+                    ? 'ТЖД үшін қоғамдық қауіпсіздікті арттыруға арналған цифрлық шешімдер'
+                    : 'Цифровые решения для повышения безопасности для ДЧС'}
+                </p>
+              </div>
+              <motion.div
+                animate={{ x: [0, 4, 0] }}
+                transition={{ duration: 1.8, repeat: Infinity }}
+                className="flex-shrink-0"
+                style={{ color: '#2D6BFF' }}
+              >
+                <ChevronRight size={20} />
+              </motion.div>
+            </div>
+          </motion.button>
+        </motion.div>
 
         {/* Title */}
         <motion.h1
@@ -185,6 +241,9 @@ export function Hero() {
           ))}
         </motion.div>
       </motion.div>
+
+      {/* Hackathon Modal */}
+      <HackathonModal isOpen={hackathonOpen} onClose={() => setHackathonOpen(false)} />
 
       {/* Scroll Indicator */}
       <motion.div

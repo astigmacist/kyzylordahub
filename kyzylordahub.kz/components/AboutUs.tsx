@@ -57,7 +57,7 @@ export function AboutUs() {
 
                 {/* Video + Content Grid */}
                 <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
-                    {/* Video */}
+                    {/* Stats Banner */}
                     <motion.div
                         initial={{ opacity: 0, x: -40 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -65,38 +65,53 @@ export function AboutUs() {
                         transition={{ duration: 0.8 }}
                         className="flex justify-center"
                     >
-                        <div className="relative">
+                        <div className="relative w-full max-w-[520px]">
                             {/* Glow behind video */}
                             <div
-                                className="absolute inset-[-20px] rounded-[40px] opacity-40 blur-2xl"
+                                className="absolute inset-[-20px] rounded-[40px] opacity-50 blur-2xl pointer-events-none"
                                 style={{
-                                    background: 'linear-gradient(135deg, rgba(45,107,255,0.3), rgba(255,122,0,0.2))',
+                                    background: 'linear-gradient(135deg, rgba(45,107,255,0.35), rgba(255,122,0,0.25))',
                                 }}
                             />
+                            {/* Video frame */}
                             <div
-                                className="relative w-full max-w-[300px] aspect-[9/16] rounded-3xl overflow-hidden shadow-2xl"
+                                className="relative rounded-3xl overflow-hidden shadow-2xl"
                                 style={{
                                     border: '1px solid rgba(255,255,255,0.1)',
-                                    background: 'rgba(0,0,0,0.5)',
+                                    aspectRatio: '9/16',
+                                    maxHeight: '520px',
                                 }}
                             >
                                 <video
-                                    className="w-full h-full object-cover"
-                                    controls
+                                    autoPlay
+                                    loop
                                     playsInline
-                                    preload="metadata"
+                                    controls
+                                    className="w-full h-full object-cover"
                                 >
                                     <source src="/kyzylorda-hub.mp4" type="video/mp4" />
-                                    Ваш браузер не поддерживает воспроизведение видео.
                                 </video>
-                                {/* Video overlay gradient at top */}
+                                {/* Subtle overlay */}
                                 <div
-                                    className="absolute top-0 inset-x-0 h-16 pointer-events-none"
+                                    className="absolute inset-0 pointer-events-none"
                                     style={{
-                                        background: 'linear-gradient(to bottom, rgba(0,0,0,0.3), transparent)',
+                                        background: 'linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 50%)',
                                     }}
                                 />
+                                {/* Logo badge over video */}
+                                <div
+                                    className="absolute bottom-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-xl"
+                                    style={{
+                                        background: 'rgba(0,0,0,0.55)',
+                                        backdropFilter: 'blur(10px)',
+                                        border: '1px solid rgba(255,255,255,0.1)',
+                                    }}
+                                >
+                                    <img src="/logo-horizontal.png" alt="Kyzylorda Hub" className="h-5 w-auto" />
+                                </div>
                             </div>
+
+
                         </div>
                     </motion.div>
 
