@@ -15,7 +15,7 @@
 
 # next.js
 /.next/
-/out/
+# /out/ — не игнорируем, чтобы деплоить через git
 
 # production
 /build
