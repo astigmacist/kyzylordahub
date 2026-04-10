@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Sun, Moon, Phone } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLocale } from '@/contexts/LocaleContext';
+import Link from 'next/link';
 
 interface NavigationProps {
   activeSection: string;
@@ -39,7 +40,7 @@ export function Navigation({ activeSection, onNavigate }: NavigationProps) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const navItems = [
+  const scrollNavItems = [
     { id: 'home', label: t.nav.home },
     { id: 'programs', label: t.nav.programs },
     { id: 'club', label: t.nav.club },
@@ -84,7 +85,7 @@ export function Navigation({ activeSection, onNavigate }: NavigationProps) {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-8">
-              {navItems.map((item) => (
+              {scrollNavItems.map((item) => (
                 <motion.button
                   key={item.id}
                   onClick={() => onNavigate(item.id)}
@@ -278,7 +279,7 @@ export function Navigation({ activeSection, onNavigate }: NavigationProps) {
             }}
           >
             <div className="p-5 space-y-1">
-              {navItems.map((item, i) => (
+              {scrollNavItems.map((item, i) => (
                 <motion.button
                   key={item.id}
                   initial={{ opacity: 0, x: -20 }}
@@ -297,6 +298,7 @@ export function Navigation({ activeSection, onNavigate }: NavigationProps) {
                   {item.label}
                 </motion.button>
               ))}
+
 
               <div className="h-px my-3" style={{ background: 'var(--border)' }} />
 

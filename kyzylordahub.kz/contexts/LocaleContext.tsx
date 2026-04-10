@@ -12,6 +12,7 @@ export const translations = {
       programs: 'Программы',
       club: 'Клуб',
       coworking: 'Коворкинг',
+      hackathon: 'Хакатон',
     },
 
     // Hero
@@ -196,6 +197,7 @@ export const translations = {
       programs: 'Бағдарламалар',
       club: 'Клуб',
       coworking: 'Коворкинг',
+      hackathon: 'Хакатон',
     },
 
     // Hero

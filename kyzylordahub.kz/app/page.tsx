@@ -11,6 +11,7 @@ import { AboutUs } from '@/components/AboutUs';
 import { Club } from '@/components/Club';
 import { Coworking } from '@/components/Coworking';
 import { Contacts } from '@/components/Contacts';
+import { HackathonBanner } from '@/components/HackathonBanner';
 
 const programIcons = [Rocket, Users, Briefcase, Coins, GraduationCap, Network, Rocket, Coins];
 const programColors = ['#2D6BFF', '#FF7A00', '#2D6BFF', '#FF7A00', '#2D6BFF', '#FF7A00', '#2D6BFF', '#FF7A00'];
@@ -25,7 +26,7 @@ export default function Home() {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 500);
 
-      const sections = ['home', 'about', 'programs', 'club', 'coworking', 'contacts'];
+      const sections = ['home', 'about', 'programs', 'club', 'coworking', 'hackathon', 'contacts'];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -45,10 +46,6 @@ export default function Home() {
   }, []);
 
   const handleNavigate = useCallback((section: string) => {
-    if (section === 'home') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
     const element = document.getElementById(section);
     if (element) {
       const offset = 88;
@@ -69,6 +66,16 @@ export default function Home() {
 
       {/* Main Content */}
       <main>
+        {/* Hackathon Banner — full screen first */}
+        <HackathonBanner
+          onScrollDown={() => {
+            const el = document.getElementById('home');
+            if (el) {
+              window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 88, behavior: 'smooth' });
+            }
+          }}
+        />
+
         {/* Hero */}
         <div id="home">
           <Hero />
